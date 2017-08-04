@@ -1,0 +1,2 @@
+class WeatherTrackerInitializer
+end
