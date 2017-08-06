@@ -7,6 +7,7 @@ class WeatherService
     response = Unirest.get "http://api.openweathermap.org/data/2.5/weather",
       parameters: {
         zip: "#{zipcode},us",
+        units: 'imperial',
         APPID: ENV['OPEN_WEATHER_MAP_API_KEY'],
       }
 

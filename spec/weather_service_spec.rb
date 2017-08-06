@@ -22,5 +22,10 @@ describe WeatherService do
         :timestamp,
       )
     end
+
+    it 'should return the temperature in fahrenheit' do
+      # < 150 will most likely not be Kelvin
+      expect(described_class.new.get_weather(zipcode)[:temperature_f]).to be < 150
+    end
   end
 end
