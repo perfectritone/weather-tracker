@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'weather_tracker'
 
 describe WeatherTracker do

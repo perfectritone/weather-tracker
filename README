@@ -5,7 +5,9 @@ Update config/zipcodes_to_track.json with zipcodes and intervals each should be
 checked in seconds
 
 Run `sqlite3 weather_tracker.sqlite3` to setup the database
+Run `sqlite3 weather_tracker_test.sqlite3` to setup the test database
 Run `rake db:migrate` to migrate database
+Run `WEATHER_TRACKER_DATABASE_URL=sqlite://weather_tracker_test.sqlite3 rake db:migrate` to migrate test database
 
 Run `rake weather_tracker` to setup jobs
 

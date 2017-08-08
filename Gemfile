@@ -8,3 +8,4 @@ gem 'rake'
 gem 'sidekiq'
 
 gem 'rspec'
+gem 'database_cleaner'

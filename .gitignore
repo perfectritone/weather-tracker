@@ -1,4 +1,4 @@
 .ruby-version
 .env
-weather_tracker.rb
-todo
+weather_tracker.sqlite3
+weather_tracker_test.sqlite3
