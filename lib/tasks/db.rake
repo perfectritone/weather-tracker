@@ -12,7 +12,7 @@ def run_migrations(version:nil)
 
   Sequel.extension :migration
 
-  db = WeatherTracker.new.db
+  db = WeatherTracker.db
 
   migration_dir = File.join(Dir.pwd, 'db', 'migrate')
 

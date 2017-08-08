@@ -8,7 +8,7 @@ describe WeatherTracker do
 
     it 'should get the weather and store it in the db' do
       expect{described_class.new.track(zipcode)}.
-        to change{described_class.new.db[:weather_data].count}.by 1
+        to change{described_class.db[:weather_data].count}.by 1
     end
   end
 end
