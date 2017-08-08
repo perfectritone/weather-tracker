@@ -5,5 +5,6 @@ gem 'dotenv'
 gem 'sqlite3'
 gem 'sequel'
 gem 'rake'
+gem 'sidekiq'
 
 gem 'rspec'

@@ -1,26 +1,17 @@
-require_relative '../weather_tracker'
+require 'json'
+require 'sidekiq/api'
+require_relative '../weather_worker'
 
-namespace :db do
-  desc "Run migrations"
-  task :migrate, [:version, :gem_root] do |_, args|
-    run_migrations(version: args[:version])
-  end
-end
+desc "Weather tracker"
+task :weather_tracker do
+  ss = Sidekiq::ScheduledSet.new
+  jobs = ss.select {|job| job.klass == 'WeatherWorker' }
+  jobs.each(&:delete)
 
-def run_migrations(version:nil)
-  require "sequel"
+  config_raw_json = File.read('config/zipcodes_to_track.json')
+  config = JSON.parse(config_raw_json)
 
-  Sequel.extension :migration
-
-  db = WeatherTracker.new.db
-
-  migration_dir = File.join(Dir.pwd, 'db', 'migrate')
-
-  if version
-    puts "Migrating to version #{version}"
-    Sequel::Migrator.run(db, migration_dir, target: version.to_i)
-  else
-    puts "Migrating to latest"
-    Sequel::Migrator.run(db, migration_dir)
+  config.each do |c|
+    WeatherWorker.perform_in(c["every"], c["zipcode"], c["every"])
   end
 end
