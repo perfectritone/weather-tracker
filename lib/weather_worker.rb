@@ -23,8 +23,13 @@ class WeatherWorker
   sidekiq_options queue: 'weather_tracker'
 
   def perform(zipcode, every=nil)
-    WeatherTracker.new.track(zipcode)
-    puts zipcode
-    self.class.perform_in(every, zipcode, every) if every
+    begin
+      puts "Tracking weather for: #{zipcode}"
+      WeatherTracker.new.track(zipcode)
+    rescue
+      puts "Error tracking weather for: #{zipcode}"
+    ensure
+      self.class.perform_in(every, zipcode, every) if every
+    end
   end
 end
